@@ -25,17 +25,17 @@ jobs:
           node-version: 20
 
       - name: Install
-        working-directory: webportfolio
+        working-directory: WebPortfolio
         run: npm ci
 
       - name: Build
-        working-directory: webportfolio
+        working-directory: WebPortfolio
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: webportfolio/dist
+          path: WebPortfolio/dist
 
       - name: Deploy
         id: deployment
