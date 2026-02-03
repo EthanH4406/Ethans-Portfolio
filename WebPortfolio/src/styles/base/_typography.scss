@@ -1,0 +1,10 @@
+@use '../base/variables' as *;
+
+h1, h2, h3 {
+    font-family: $header-font;
+    padding-top: 3rem;
+}
+
+p {
+    font-family: $text-font;
+}

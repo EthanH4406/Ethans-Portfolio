@@ -1,0 +1,72 @@
+@use '../base/variables' as *;
+@use '../base/animations' as *;
+
+#mainPageSplash {
+    background-color: $nav-bg;
+    height: 100svh;
+}
+
+#splashContainer {
+    padding-top: 4rem;
+}
+
+#profilePicture {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+#introTitle {
+    opacity: 0;
+    animation: slideInLeft 0.5s ease-out forwards;
+    animation-delay: 0.3s;
+
+    h2 { 
+        color: $nav-text
+    }
+}
+
+#introAbout {
+    opacity: 0;
+    animation: slideInLeft 0.5s ease-out forwards;
+    animation-delay: 0.6s;
+
+    p {
+        font-size: 20px;
+        color: $nav-text;
+    }
+}
+
+#introContainer {
+    margin-top: 15rem;
+}
+
+#introPictureContainer {
+    padding-top: 5rem;
+    opacity: 0;
+
+    animation: slideUp 0.5s ease-out forwards;
+    animation-delay: 0.75s;
+}
+
+#introPicture {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+#contactSplash {
+    height: 25svh;
+    background-color: $nav-bg;
+
+    h2 {
+        padding-top: 12rem;
+        color: $nav-text;
+        text-align: center;
+    }
+}
+
+#splashSpacer {
+    margin-top: 15rem;
+}

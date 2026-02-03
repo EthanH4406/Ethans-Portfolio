@@ -1,0 +1,21 @@
+@use '../base/variables' as *;
+
+#websiteTable {
+    padding-bottom: 2rem;
+    margin-bottom: 4rem;
+
+    th {
+        font-family: $header-font;
+    }
+
+    td {
+        font-family: $text-font;
+        padding: 1rem;
+        border: 1px solid black;
+    }
+}
+
+.experienceDisplay {
+    list-style-position: inside;
+    padding-left: 2rem;
+}

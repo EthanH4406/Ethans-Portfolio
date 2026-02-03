@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ethan's Portfolio</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
+    <body data-page="home" class="d-flex flex-column min-vh-100">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="module" src="/src/scripts/main.ts"></script>
+
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top" id="mainNavbar">
+            <div class="container">
+                <a class="navbar-brand" href="#">Ethan.dev</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle Navigation">
+                    <span class="navbar-toggler-icon">
+                        <span class="toggler-line"></span>
+                        <span class="toggler-line"></span>
+                        <span class="toggler-line"></span>
+                    </span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/portfolio.html">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contacts.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="mainPageSplash">
+            <div class="container" id="splashContainer">
+                <div class="row">
+                    <div class="col" id="introContainer">
+                        <div id="introTitle">
+                            <h2><b>Hello, I'm Ethan!</b></h2>
+                        </div>
+
+                        <div id="introAbout">
+                            <p>I'm a computer science major currently studying at CSUCI. I currently am employed at 
+                                Rapattoni where I work as a Mls Programmer. I have experiences with C#, SQL, and the .Net
+                                Framework. I also do Indie game development on the side!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col d-flex align-items-center justify-content-center">
+                        <div id="introPictureContainer">
+                            <img id="introPicture" class="img-fluid" src="/Images/resumePic.JPG" alt="selfie">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <hr id="splashSpacer" class="section-divider">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row" id="experiences">
+                <!--Exp-->
+                <div class="col">
+                    <section class="reveal-stagger">
+                        <h2>Work Experience</h2>
+                    
+                        <div>
+                            <h3>Rapattoni</h3>
+                            <p><i>June 2025 - Present | Westlake, CA</i></p>
+                            <ul class="experienceDisplay">
+                                <li>
+                                    Developed and optimized internal reporting tools using C#, SQL, and .NET, improving data accessibility for business users
+                                </li>
+                                <li>
+                                        Built automation utilities to streamline the production pipeline, reducing manual workflows and turnaround time using frameworks like .NET
+                                </li>
+                                <li>
+                                        Integrated third-party UI and reporting libraries (e.g., DevExpress) to enhance performance and usability
+                                </li>
+                                <li>
+                                        Collaborated with stakeholders to iterate on tools based on evolving requirements
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3>Indie Game Developer</h3>
+                            <p><i>Jan 2020 - Present</i></p>
+                            <ul class="experienceDisplay">
+                                <li>
+                                    Designed and implemented gameplay systems, tools, and editor extensions across several Unity and Unreal Projects
+                                </li>
+                                <li>
+                                    Developed custom tooling for audio, procedural systems, and simulation workflows
+                                </li>
+                                <li>
+                                    Implemented performant systems using shaders and GPU driven workflows
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3>Ventura County Fairgrounds - Administration</h3>
+                            <p><i>Jul 2024 - Aug 2024, Jul 2025 | Ventura, CA</i></p>
+                            <ul class="experienceDisplay">
+                                <li>
+                                    Supported operations for large scale public events in a fast paced environment
+                                </li>
+                                <li>
+                                    Coordinated logistics with internal teams and external vendors
+                                </li>
+                                <li>
+                                    Maintained organization and reliability under tight deadlines
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </section>
+                    
+                </div>
+                <div class="col">
+                    <!--Images-->
+                </div>
+            </div>
+            <div class="row">
+                <hr class="section-divider">
+                <div class="col">
+                    <section class="reveal-stagger">
+                        <h2>Education</h2>
+
+                        <div>
+                            <h3>CSUCI</h3>
+                            <p><i>Camarillo, CA</i></p>
+                            <ul class="experienceDisplay">
+                                <li>
+                                    B.S. in Computer Science - In Progress
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3>Moorpark</h3>
+                            <p><i>Moorpark, CA</i></p>
+                            <ul class="experienceDisplay">
+                                <li>
+                                    AS-T Computer Science
+                                </li>
+                                <li>
+                                    A.S. Art
+                                </li>
+                                <li>
+                                    Web Development Certification 
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3>Rancho</h3>
+                            <p><i>Date Times</i></p>
+                            <ul class="experienceDisplay">
+                                <li>
+                                    Details woo
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col">
+                    <!--Images-->
+                </div>
+            </div>
+
+            <div class="row" id="miscAssignment">
+                <!--Misc assingment stuff-->
+                <hr class="section-divider">
+                <div>
+                    <h3>My Hobbies</h3>
+                    <div>
+                        <p>
+                            These are some of the hobbies I enjoy doing!
+                        </p>
+                    </div>
+                    <ul class="experienceDisplay">
+                        <li>
+                            Private Pilot
+                        </li>
+                        <li>
+                            Game Developer
+                        </li>
+                        <li>
+                            Video Games
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Top Favorite Websites</h3>
+
+                    <div>
+                        <p>
+                            Here's a couple of my favorite websites!
+                        </p>
+                    </div>
+
+                    <table id="websiteTable">
+                        <tr>
+                            <th>Website</th>
+                            <th>Summary</th>
+                            <th>Link</th>
+                        </tr>
+                        <tr>
+                            <td>Google</td>
+                            <td>It's one of the best search engines</td>
+                            <td><a href="https://www.google.com/">Google</a></td>
+                        </tr>
+                        <tr>
+                            <td>Google</td>
+                            <td>It's one of the best search engines</td>
+                            <td><a href="https://www.google.com/">Google</a></td>
+                        </tr>
+                        <tr>
+                            <td>Google</td>
+                            <td>It's one of the best search engines</td>
+                            <td><a href="https://www.google.com/">Google</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="pageFooter" class="mt-auto">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <p id="disclaimer">
+                            2026 Ethan Hook. All rights reserved. <br>
+                            Built with care.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
