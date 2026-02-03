@@ -15,9 +15,10 @@ if(currentPage==='portfolio') {
         const app = new PortfolioApp('portfolio-projects', GITHUB_TOKEN);
 
         const projectFiles = [
-            '/RepoMarkdownFiles/JunkyardJunction.md',
-            '/RepoMarkdownFiles/StreetPainter.md',
-            '/RepoMarkdownFiles/TerraEngine.md'
+            './RepoMarkdownFiles/JunkyardJunction.md',
+            './RepoMarkdownFiles/StreetPainter.md',
+            './RepoMarkdownFiles/TerraEngine.md',
+            './RepoMarkdownFiles/PortfolioWebsite.md'
         ];
 
         app.init(projectFiles)
