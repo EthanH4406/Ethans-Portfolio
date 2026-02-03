@@ -1,13 +1,41 @@
-$bg-main-color: #6f7d8c;
-$bg-secondary-color: #ffffff;
-$footer-color: #0a0a0a;
+$bg-main-color:             #6f7d8c;
+$bg-secondary-color:        #ffffff;
+$footer-color:              #0a0a0a;
 
-$header-font: Helvetica, Arial, sans-serif;
-$text-font: Helvetica, Arial, sans-serif;;
+$header-font:                 'Cormorant Garamond', serif; /*Helvetica, Arial, sans-serif;*/
+$text-font:                   Helvetica, Arial, sans-serif;
 
-$nav-bg: #0a0a0a;
-$nav-text: #e8e8e8;
-$nav-accent: #c9a961;
-$nav-hover: #ffffff;
-$nav-border: rgba(255, 255, 255, 0.1);
-$nav-shadow: rgba(0, 0, 0, 0.5);
+//nav ------------------------------------
+$nav-bg:                    #0a0a0a;
+$nav-text:                  #e8e8e8;
+$nav-accent:                #c9a961;
+$nav-hover:                 #ffffff;
+$nav-border:                rgba(255, 255, 255, 0.1);
+$nav-shadow:                rgba(0, 0, 0, 0.5);
+
+//portfolio -----------------------------
+$portfolio-bg:              #f5f5f0;
+$portfolio-surface:         #ffffff;
+$portfolio-text:            #1a1a1a;
+$portfolio-text-secondary:  #666666;
+$portfolio-accent:          #c9a961; //#ff3366;
+$portfolio-accent-dark:     #b3914f; //#cc0033;
+$portfolio-border:          #e0e0e0;
+$portfolio-shadow:          rgba(0, 0, 0, 0.08);
+$portfolio-shadow-hover:    rgba(0, 0, 0, 0.12);
+
+// Spacing
+$portfolio-spacing-xs:      0.5rem;
+$portfolio-spacing-sm:      1rem;
+$portfolio-spacing-md:      1.5rem;
+$portfolio-spacing-lg:      2rem;
+$portfolio-spacing-xl:      3rem;
+
+// Typography
+$portfolio-font-display:    'Manrope', sans-serif;
+$portfolio-font-mono:       'JetBrains Mono', monospace;
+
+// Transitions
+$portfolio-transition-fast: 150ms ease;
+$portfolio-transition-base: 250ms ease;
+$portfolio-transition-slow: 400ms ease;

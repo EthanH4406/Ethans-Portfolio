@@ -1,8 +1,3 @@
-/**
- * Portfolio Manager
- * Main coordinator for loading and managing portfolio projects
- */
-
 import { CompleteProject, ProjectMetadata, GithubRepoData } from './PortfolioTypes';
 import { MarkdownParser } from './MarkdownParser';
 import { GitHubAPIManager } from './GithubApi';
@@ -15,9 +10,6 @@ export class PortfolioManager {
         this.githubToken = githubToken;
     }
 
-    /**
-     * Load a project from a markdown file
-     */
     async loadProjectFromFile(markdownPath: string): Promise<CompleteProject> {
         try {
             // Fetch the markdown file
@@ -57,25 +49,16 @@ export class PortfolioManager {
         }
     }
 
-    /**
-     * Load multiple projects from an array of markdown file paths
-     */
     async loadProjects(markdownPaths: string[]): Promise<CompleteProject[]> {
         const promises = markdownPaths.map(path => this.loadProjectFromFile(path));
         this.projects = await Promise.all(promises);
         return this.projects;
     }
 
-    /**
-     * Get all loaded projects
-     */
     getProjects(): CompleteProject[] {
         return this.projects;
     }
 
-    /**
-     * Refresh GitHub data for all projects
-     */
     async refreshGitHubData(): Promise<void> {
         for (const project of this.projects) {
             if (project.metadata.repoLink) {
@@ -95,16 +78,10 @@ export class PortfolioManager {
         }
     }
 
-    /**
-     * Clear all GitHub API cache
-     */
     clearCache(): void {
         GitHubAPIManager.clearCache();
     }
 
-    /**
-     * Sort projects by last updated date (most recent first)
-     */
     sortByLastUpdated(): void {
         this.projects.sort((a, b) => {
             const dateA = a.githubData?.lastUpdated ? new Date(a.githubData.lastUpdated).getTime() : 0;
@@ -113,9 +90,6 @@ export class PortfolioManager {
         });
     }
 
-    /**
-     * Sort projects alphabetically by title
-     */
     sortByTitle(): void {
         this.projects.sort((a, b) =>
             a.metadata.title.localeCompare(b.metadata.title)

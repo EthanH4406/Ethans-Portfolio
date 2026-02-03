@@ -1,4 +1,4 @@
-import { GithubLangaugeStats, LanguageBreakdown } from "./PortfolioTypes";
+import { GithubLanguageStats, LanguageBreakdown } from "./PortfolioTypes";
 
 export class LanguageUtils {
     private static readonly LANGUAGE_COLORS: {[key: string]: string} = {
@@ -37,7 +37,7 @@ export class LanguageUtils {
         'Default': '#858585'
     };
 
-    static calculateBreakdown(languages: GithubLangaugeStats): LanguageBreakdown[] {
+    static calculateBreakdown(languages: GithubLanguageStats): LanguageBreakdown[] {
         const totalBytes = Object.values(languages).reduce((sum, bytes) => sum + bytes, 0);
 
         if(totalBytes === 0) {

@@ -1,8 +1,3 @@
-/**
- * Main Application Entry Point
- * Initializes and manages the portfolio display
- */
-
 import { PortfolioManager } from './PortfolioManager';
 import { CompleteProject } from './PortfolioTypes';
 import { ProjectCard } from './Projectcard';
@@ -21,9 +16,6 @@ class PortfolioApp {
         }
     }
 
-    /**
-     * Initialize the portfolio with project markdown files
-     */
     async init(projectPaths: string[]): Promise<void> {
         try {
             // Show loading state
@@ -46,9 +38,6 @@ class PortfolioApp {
         }
     }
 
-    /**
-     * Render all project cards
-     */
     private renderProjects(projects: CompleteProject[]): void {
         if (!this.container) return;
 
@@ -84,9 +73,6 @@ class PortfolioApp {
         this.container.appendChild(row);
     }
 
-    /**
-     * Show loading state
-     */
     private showLoading(): void {
         if (!this.container) return;
 
@@ -100,9 +86,6 @@ class PortfolioApp {
     `;
     }
 
-    /**
-     * Show error message
-     */
     private showError(message: string): void {
         if (!this.container) return;
 
@@ -113,9 +96,6 @@ class PortfolioApp {
     `;
     }
 
-    /**
-     * Setup automatic refresh every hour
-     */
     private setupAutoRefresh(): void {
         setInterval(async () => {
             console.log('Auto-refreshing GitHub data...');
@@ -131,18 +111,12 @@ class PortfolioApp {
         }, 60 * 60 * 1000); // 1 hour
     }
 
-    /**
-     * Manually refresh all GitHub data
-     */
     async refresh(): Promise<void> {
         await this.manager.refreshGitHubData();
         const projects = this.manager.getProjects();
         this.renderProjects(projects);
     }
 
-    /**
-     * Clear cache and reload
-     */
     async clearCacheAndReload(projectPaths: string[]): Promise<void> {
         this.manager.clearCache();
         await this.init(projectPaths);

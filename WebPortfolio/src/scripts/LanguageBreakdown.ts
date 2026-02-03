@@ -1,8 +1,3 @@
-/**
- * Language Breakdown View Component
- * Displays language statistics with bar chart and pie chart
- */
-
 import { LanguageBreakdown } from './PortfolioTypes';
 import { LanguageUtils } from './LanguageUtils';
 
@@ -15,9 +10,6 @@ export class LanguageBreakdownView {
         this.element = document.createElement('div');
     }
 
-    /**
-     * Render the language breakdown view
-     */
     render(): HTMLElement {
         this.element.className = 'language-breakdown-view';
 
@@ -33,9 +25,6 @@ export class LanguageBreakdownView {
         return this.element;
     }
 
-    /**
-     * Render bar chart for languages
-     */
     private renderBarChart(): string {
         return `
       <div class="language-bars">
@@ -59,9 +48,6 @@ export class LanguageBreakdownView {
     `;
     }
 
-    /**
-     * Render pie chart SVG
-     */
     private renderPieChart(): string {
         const chartData = LanguageUtils.generatePieChartData(this.breakdown);
 
@@ -104,9 +90,6 @@ export class LanguageBreakdownView {
     `;
     }
 
-    /**
-     * Escape HTML to prevent XSS
-     */
     private escapeHtml(text: string): string {
         const div = document.createElement('div');
         div.textContent = text;

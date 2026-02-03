@@ -1,8 +1,3 @@
-/**
- * Project Card Component
- * Handles rendering and interaction for individual project cards
- */
-
 import { CompleteProject, LanguageBreakdown } from './PortfolioTypes';
 import { LanguageUtils } from './LanguageUtils';
 import { ImageCarousel } from './ImageCarousel';
@@ -22,9 +17,6 @@ export class ProjectCard {
         this.animationDelay = index * 100; // Stagger animations
     }
 
-    /**
-     * Render the project card
-     */
     render(): HTMLElement {
         this.element.className = 'project-card';
         this.element.style.animationDelay = `${this.animationDelay}ms`;
@@ -56,9 +48,6 @@ export class ProjectCard {
         return this.element;
     }
 
-    /**
-     * Render card header with title and date
-     */
     private renderHeader(): string {
         const lastUpdated = this.project.githubData?.lastUpdated
             ? this.formatDate(this.project.githubData.lastUpdated)
@@ -80,9 +69,6 @@ export class ProjectCard {
     `;
     }
 
-    /**
-     * Render image carousel container
-     */
     private renderCarousel(): string {
         if (!this.project.githubData?.previewImages || this.project.githubData.previewImages.length === 0) {
             return `
@@ -99,9 +85,6 @@ export class ProjectCard {
         return '<div class="carousel-container"></div>';
     }
 
-    /**
-     * Render collapsed content (always visible)
-     */
     private renderCollapsedContent(): string {
         return `
       <div class="project-card-body">
@@ -115,9 +98,6 @@ export class ProjectCard {
     `;
     }
 
-    /**
-     * Render expanded content (shown when card is expanded)
-     */
     private renderExpandedContent(): string {
         const languageBreakdown = this.project.githubData?.languages
             ? LanguageUtils.calculateBreakdown(this.project.githubData.languages)
@@ -181,9 +161,6 @@ export class ProjectCard {
     `;
     }
 
-    /**
-     * Setup event listeners for card interactions
-     */
     private setupEventListeners(): void {
         // Expand/collapse main card
         const expandBtn = this.element.querySelector('.btn-expand');
@@ -201,9 +178,6 @@ export class ProjectCard {
         }
     }
 
-    /**
-     * Toggle card expanded state
-     */
     private toggleExpanded(): void {
         this.isExpanded = !this.isExpanded;
 
@@ -229,9 +203,6 @@ export class ProjectCard {
         }
     }
 
-    /**
-     * Toggle language breakdown view
-     */
     private toggleLanguageBreakdown(): void {
         const container = this.element.querySelector('.language-breakdown-container') as HTMLElement;
         const toggleBtn = this.element.querySelector('.btn-language-toggle') as HTMLButtonElement;
@@ -259,9 +230,6 @@ export class ProjectCard {
         }
     }
 
-    /**
-     * Update project data
-     */
     updateData(project: CompleteProject): void {
         this.project = project;
         // Re-render the card
@@ -272,9 +240,6 @@ export class ProjectCard {
         }
     }
 
-    /**
-     * Format date to readable string
-     */
     private formatDate(dateString: string): string {
         const date = new Date(dateString);
         const now = new Date();
@@ -302,9 +267,6 @@ export class ProjectCard {
         }
     }
 
-    /**
-     * Escape HTML to prevent XSS
-     */
     private escapeHtml(text: string): string {
         const div = document.createElement('div');
         div.textContent = text;

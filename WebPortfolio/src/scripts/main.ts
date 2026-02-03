@@ -31,4 +31,3 @@ if(currentPage==='portfolio') {
     });
 }
 
-import c150 from '../assets/images/c150.jpg';

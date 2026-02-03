@@ -1,8 +1,3 @@
-/**
- * GitHub API Manager with Caching
- * Handles GitHub API calls with 1-hour cache to minimize API usage
- */
-
 import { GithubRepoData, CachedRepoData, GithubLanguageStats } from './PortfolioTypes';
 
 export class GitHubAPIManager {
@@ -10,9 +5,6 @@ export class GitHubAPIManager {
     private static readonly CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
     private static readonly PREVIEW_FOLDER = 'repo_Previews';
 
-    /**
-     * Retrieves cached data from localStorage
-     */
     private static getCache(): CachedRepoData {
         try {
             const cached = localStorage.getItem(this.CACHE_KEY);
@@ -24,9 +16,6 @@ export class GitHubAPIManager {
         }
     }
 
-    /**
-     * Saves data to cache
-     */
     private static setCache(cache: CachedRepoData): void {
         try {
             localStorage.setItem(this.CACHE_KEY, JSON.stringify(cache));
@@ -35,16 +24,10 @@ export class GitHubAPIManager {
         }
     }
 
-    /**
-     * Checks if cached data is still valid
-     */
     private static isCacheValid(timestamp: number): boolean {
         return Date.now() - timestamp < this.CACHE_DURATION;
     }
 
-    /**
-     * Fetches repository data from GitHub API or cache
-     */
     static async fetchRepoData(
         owner: string,
         repo: string,
@@ -91,9 +74,6 @@ export class GitHubAPIManager {
         }
     }
 
-    /**
-     * Fetches data from GitHub API
-     */
     private static async fetchFromGitHub(
         owner: string,
         repo: string,
@@ -140,9 +120,6 @@ export class GitHubAPIManager {
         };
     }
 
-    /**
-     * Fetches image URLs from the repo_Previews folder
-     */
     private static async fetchPreviewImages(
         owner: string,
         repo: string,
@@ -177,16 +154,10 @@ export class GitHubAPIManager {
         }
     }
 
-    /**
-     * Manually clear the cache (useful for debugging or forced refresh)
-     */
     static clearCache(): void {
         localStorage.removeItem(this.CACHE_KEY);
     }
 
-    /**
-     * Get cache status for a specific repo
-     */
     static getCacheStatus(owner: string, repo: string): {
         cached: boolean;
         valid: boolean;

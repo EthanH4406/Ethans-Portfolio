@@ -7,45 +7,16 @@
 // Import Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
-// Color Variables
-:root {
-    --color-bg: #f5f5f0;
-    --color-surface: #ffffff;
-    --color-text: #1a1a1a;
-    --color-text-secondary: #666666;
-    --color-accent: #ff3366;
-    --color-accent-dark: #cc0033;
-    --color-border: #e0e0e0;
-    --color-shadow: rgba(0, 0, 0, 0.08);
-    --color-shadow-hover: rgba(0, 0, 0, 0.12);
-
-    // Spacing
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
-
-    // Typography
-    --font-display: 'Manrope', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-
-    // Transitions
-    --transition-fast: 150ms ease;
-    --transition-base: 250ms ease;
-    --transition-slow: 400ms ease;
-}
-
 // Global Styles
 body {
-    font-family: var(--font-display);
-    background-color: var(--color-bg);
-    color: var(--color-text);
+    font-family: $portfolio-font-display;
+    background-color: $portfolio-bg;
+    color: $portfolio-text;
     line-height: 1.6;
 }
 
 #portfolio-projects {
-    padding: var(--spacing-xl) 0;
+    padding: $portfolio-spacing-xl 0;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -70,11 +41,11 @@ body {
 }
 
 .project-card-inner {
-    background: var(--color-surface);
-    border: 2px solid var(--color-text);
+    background: $portfolio-surface;
+    border: 2px solid $portfolio-text;
     border-radius: 0;
     overflow: hidden;
-    transition: all var(--transition-base);
+    transition: all $portfolio-transition-base;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -87,10 +58,10 @@ body {
         left: 0;
         right: 0;
         height: 4px;
-        background: var(--color-accent);
+        background: $portfolio-accent;
         transform: scaleX(0);
         transform-origin: left;
-        transition: transform var(--transition-slow);
+        transition: transform $portfolio-transition-slow;
     }
 
     &:hover::before,
@@ -99,35 +70,35 @@ body {
     }
 
     &:hover {
-        box-shadow: 8px 8px 0 var(--color-text);
+        box-shadow: 8px 8px 0 $portfolio-text;
         transform: translate(-2px, -2px);
     }
 }
 
 // Card Header
 .project-card-header {
-    padding: var(--spacing-md);
-    border-bottom: 2px solid var(--color-border);
-    background: var(--color-surface);
+    padding: $portfolio-spacing-md;
+    border-bottom: 2px solid $portfolio-border;
+    background: $portfolio-surface;
 }
 
 .project-title {
     font-size: 1.5rem;
     font-weight: 800;
-    margin: 0 0 var(--spacing-xs);
+    margin: 0 0 $portfolio-spacing-xs;
     letter-spacing: -0.02em;
     line-height: 1.2;
-    color: var(--color-text);
+    color: $portfolio-text;
 }
 
 .project-date {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: $portfolio-spacing-xs;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--color-text-secondary);
-    font-family: var(--font-mono);
+    color: $portfolio-text-secondary;
+    font-family: $portfolio-font-mono;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 
@@ -140,7 +111,7 @@ body {
 // Image Carousel Styles
 .carousel-container {
     position: relative;
-    background: var(--color-bg);
+    background: $portfolio-bg;
     aspect-ratio: 16 / 9;
     overflow: hidden;
 }
@@ -163,7 +134,7 @@ body {
         width: 100%;
         height: 100%;
         opacity: 0;
-        transition: opacity var(--transition-slow);
+        transition: opacity $portfolio-transition-slow;
 
         &.active {
             opacity: 1;
@@ -183,8 +154,8 @@ body {
         top: 50%;
         transform: translateY(-50%);
         z-index: 2;
-        background: var(--color-text);
-        color: var(--color-surface);
+        background: $portfolio-text;
+        color: $portfolio-surface;
         border: none;
         width: 40px;
         height: 40px;
@@ -192,18 +163,18 @@ body {
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all var(--transition-fast);
+        transition: all $portfolio-transition-fast;
 
         &:hover {
-            background: var(--color-accent);
+            background: $portfolio-accent;
         }
 
         &.carousel-prev {
-            left: var(--spacing-sm);
+            left: $portfolio-spacing-sm;
         }
 
         &.carousel-next {
-            right: var(--spacing-sm);
+            right: $portfolio-spacing-sm;
         }
 
         svg {
@@ -214,31 +185,31 @@ body {
 
     .carousel-indicators {
         position: absolute;
-        bottom: var(--spacing-sm);
+        bottom: $portfolio-spacing-sm;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: var(--spacing-xs);
+        gap: $portfolio-spacing-xs;
         z-index: 2;
     }
 
     .carousel-indicator {
         width: 8px;
         height: 8px;
-        border: 2px solid var(--color-surface);
+        border: 2px solid $portfolio-surface;
         background: transparent;
         cursor: pointer;
-        transition: all var(--transition-fast);
+        transition: all $portfolio-transition-fast;
         padding: 0;
 
         &.active {
-            background: var(--color-surface);
+            background: $portfolio-surface;
             width: 24px;
         }
 
         &:hover {
-            background: var(--color-accent);
-            border-color: var(--color-accent);
+            background: $portfolio-accent;
+            border-color: $portfolio-accent;
         }
     }
 }
@@ -250,9 +221,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-sm);
-    background: var(--color-bg);
-    color: var(--color-text-secondary);
+    gap: $portfolio-spacing-sm;
+    background: $portfolio-bg;
+    color: $portfolio-text-secondary;
 
     .placeholder-icon {
         width: 64px;
@@ -261,7 +232,7 @@ body {
     }
 
     span {
-        font-family: var(--font-mono);
+        font-family: $portfolio-font-mono;
         font-size: 0.875rem;
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -271,7 +242,7 @@ body {
 
 // Card Body
 .project-card-body {
-    padding: var(--spacing-md);
+    padding: $portfolio-spacing-md;
 }
 
 .btn-expand {
@@ -279,33 +250,33 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--color-text);
-    color: var(--color-surface);
+    padding: $portfolio-spacing-sm $portfolio-spacing-md;
+    background: $portfolio-text;
+    color: $portfolio-surface;
     border: none;
-    font-family: var(--font-display);
+    font-family: $portfolio-font-display;
     font-weight: 600;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     cursor: pointer;
-    transition: all var(--transition-base);
+    transition: all $portfolio-transition-base;
 
     &:hover {
-        background: var(--color-accent);
+        background: $portfolio-accent;
     }
 
     .expand-icon {
         width: 20px;
         height: 20px;
-        transition: transform var(--transition-base);
+        transition: transform $portfolio-transition-base;
     }
 }
 
 // Expanded Content
 .project-card-expanded {
-    padding: var(--spacing-md);
-    border-top: 2px solid var(--color-border);
+    padding: $portfolio-spacing-md;
+    border-top: 2px solid $portfolio-border;
     animation: expandIn 0.3s ease;
 
     @keyframes expandIn {
@@ -325,23 +296,23 @@ body {
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.15em;
-        margin: 0 0 var(--spacing-sm);
-        color: var(--color-accent);
+        margin: 0 0 $portfolio-spacing-sm;
+        color: $portfolio-accent;
     }
 
     p {
-        margin: 0 0 var(--spacing-md);
+        margin: 0 0 $portfolio-spacing-md;
         line-height: 1.7;
     }
 }
 
 .project-description,
 .project-role {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: $portfolio-spacing-lg;
 }
 
 .project-features {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: $portfolio-spacing-lg;
 
     ul {
         list-style: none;
@@ -350,14 +321,14 @@ body {
 
         li {
             position: relative;
-            padding-left: var(--spacing-md);
-            margin-bottom: var(--spacing-xs);
+            padding-left: $portfolio-spacing-md;
+            margin-bottom: $portfolio-spacing-xs;
 
             &::before {
                 content: '▸';
                 position: absolute;
                 left: 0;
-                color: var(--color-accent);
+                color: $portfolio-accent;
                 font-weight: bold;
             }
         }
@@ -366,26 +337,26 @@ body {
 
 // Language Breakdown
 .project-languages {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: $portfolio-spacing-lg;
 }
 
 .btn-language-toggle {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm);
-    background: var(--color-bg);
-    border: 2px solid var(--color-border);
-    font-family: var(--font-display);
+    gap: $portfolio-spacing-sm;
+    padding: $portfolio-spacing-sm;
+    background: $portfolio-bg;
+    border: 2px solid $portfolio-border;
+    font-family: $portfolio-font-display;
     font-weight: 600;
     font-size: 0.875rem;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all $portfolio-transition-fast;
 
     &:hover {
-        border-color: var(--color-text);
-        background: var(--color-surface);
+        border-color: $portfolio-text;
+        background: $portfolio-surface;
     }
 
     .icon {
@@ -397,12 +368,12 @@ body {
         width: 16px;
         height: 16px;
         margin-left: auto;
-        transition: transform var(--transition-base);
+        transition: transform $portfolio-transition-base;
     }
 }
 
 .language-breakdown-container {
-    margin-top: var(--spacing-md);
+    margin-top: $portfolio-spacing-md;
     animation: slideDown 0.3s ease;
 
     @keyframes slideDown {
@@ -421,7 +392,7 @@ body {
 .language-breakdown-view {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    gap: $portfolio-spacing-lg;
 
     @media (min-width: 768px) {
         grid-template-columns: 2fr 1fr;
@@ -432,7 +403,7 @@ body {
 .language-bars {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: $portfolio-spacing-md;
 }
 
 .language-bar-item {
@@ -440,13 +411,13 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: var(--spacing-xs);
+        margin-bottom: $portfolio-spacing-xs;
     }
 
     .language-name {
         display: flex;
         align-items: center;
-        gap: var(--spacing-xs);
+        gap: $portfolio-spacing-xs;
         font-weight: 600;
         font-size: 0.875rem;
     }
@@ -455,19 +426,19 @@ body {
         width: 12px;
         height: 12px;
         border-radius: 0;
-        border: 2px solid var(--color-text);
+        border: 2px solid $portfolio-text;
     }
 
     .language-percentage {
-        font-family: var(--font-mono);
+        font-family: $portfolio-font-mono;
         font-weight: 600;
         font-size: 0.875rem;
     }
 
     .language-bar-track {
         height: 24px;
-        background: var(--color-bg);
-        border: 2px solid var(--color-text);
+        background: $portfolio-bg;
+        border: 2px solid $portfolio-text;
         position: relative;
         overflow: hidden;
     }
@@ -487,8 +458,8 @@ body {
     .language-bytes {
         margin-top: 4px;
         font-size: 0.75rem;
-        color: var(--color-text-secondary);
-        font-family: var(--font-mono);
+        color: $portfolio-text-secondary;
+        font-family: $portfolio-font-mono;
     }
 }
 
@@ -496,7 +467,7 @@ body {
 .pie-chart-wrapper {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: $portfolio-spacing-md;
 }
 
 .pie-chart-svg {
@@ -507,7 +478,7 @@ body {
 
     .pie-segment {
         cursor: pointer;
-        transition: opacity var(--transition-fast);
+        transition: opacity $portfolio-transition-fast;
         animation: drawPie 0.6s ease forwards;
         transform-origin: center;
 
@@ -532,17 +503,17 @@ body {
 .pie-chart-legend {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xs);
+    gap: $portfolio-spacing-xs;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: $portfolio-spacing-xs;
     font-size: 0.875rem;
 
     &.legend-others {
-        color: var(--color-text-secondary);
+        color: $portfolio-text-secondary;
         font-style: italic;
     }
 }
@@ -551,7 +522,7 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 0;
-    border: 2px solid var(--color-text);
+    border: 2px solid $portfolio-text;
     flex-shrink: 0;
 }
 
@@ -561,35 +532,35 @@ body {
 }
 
 .legend-value {
-    font-family: var(--font-mono);
+    font-family: $portfolio-font-mono;
     font-size: 0.75rem;
-    color: var(--color-text-secondary);
+    color: $portfolio-text-secondary;
 }
 
 // Project Actions
 .project-actions {
-    margin-top: var(--spacing-lg);
+    margin-top: $portfolio-spacing-lg;
 }
 
 .btn-repo {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--color-accent);
-    color: var(--color-surface);
+    gap: $portfolio-spacing-sm;
+    padding: $portfolio-spacing-sm $portfolio-spacing-md;
+    background: $portfolio-accent;
+    color: $portfolio-surface;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    transition: all var(--transition-fast);
-    border: 2px solid var(--color-accent);
+    transition: all $portfolio-transition-fast;
+    border: 2px solid $portfolio-accent;
 
     &:hover {
-        background: var(--color-accent-dark);
-        border-color: var(--color-accent-dark);
-        color: var(--color-surface);
+        background: $portfolio-accent-dark;
+        border-color: $portfolio-accent-dark;
+        color: $portfolio-surface;
         transform: translateX(4px);
     }
 
@@ -616,7 +587,7 @@ body {
 
 // Loading and error states
 .spinner-border {
-    border-color: var(--color-accent);
+    border-color: $portfolio-accent;
     border-right-color: transparent;
 }
 
@@ -626,13 +597,13 @@ body {
     font-weight: 600;
 
     &.alert-info {
-        border-color: var(--color-text);
-        background: var(--color-bg);
+        border-color: $portfolio-text;
+        background: $portfolio-bg;
     }
 
     &.alert-danger {
-        border-color: var(--color-accent);
+        border-color: $portfolio-accent;
         background: #fff5f5;
-        color: var(--color-accent-dark);
+        color: $portfolio-accent-dark;
     }
 }

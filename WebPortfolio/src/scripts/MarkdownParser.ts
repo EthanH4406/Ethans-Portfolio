@@ -1,8 +1,3 @@
-/**
- * Markdown Parser for Project Files
- * Parses project markdown files to extract metadata
- */
-
 import { ProjectMetadata } from './PortfolioTypes';
 
 export class MarkdownParser {
@@ -12,9 +7,9 @@ export class MarkdownParser {
      * Expected markdown format:
      * # Project Title
      * ## Description
-     * Your description here
+     * description here
      * ## Role
-     * Your role here
+     * role here
      * ## Features
      * - Feature 1
      * - Feature 2
@@ -82,9 +77,6 @@ export class MarkdownParser {
         return project;
     }
 
-    /**
-     * Extracts the GitHub repo owner and name from a GitHub URL
-     */
     static extractRepoInfo(repoUrl: string): { owner: string; repo: string } | null {
         const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/\s#?]+)/);
         if (!match) return null;
