@@ -10,16 +10,20 @@ export class ImageCarousel {
         this.projectTitle = projectTitle;
         this.element = document.createElement('div');
     }
-    
+
 
     render(): HTMLElement {
         this.element.className = 'image-carousel';
         this.element.innerHTML = `
             <div class="carousel-track">
-                ${this.images.map((img, index) => `
-                    <div class="carousel-slide ${index === 0 ? 'active' : ''}" data-index="${index}" loading="lazy">
-                </div>
+                ${this.images.map((image, index) => `
+                <div
+                    class="carousel-slide ${index === 0 ? 'active' : ''}"
+                    data-index="${index}"
+                    style="background-image: url('${image}')"
+                ></div>
             `).join('')}
+
             </div>
             
             ${this.images.length > 1 ? `
@@ -36,7 +40,7 @@ export class ImageCarousel {
                 
                 <div class="carousel-indicators">
                     ${this.images.map((_, index) => `
-                        <button class="carousel-indicator ${index===0 ? 'active' : ''}"
+                        <button class="carousel-indicator ${index === 0 ? 'active' : ''}"
                             data-index="${index}"
                             aria-label="Go to image ${index + 1}"></button>
                     `).join('')}
@@ -45,21 +49,21 @@ export class ImageCarousel {
         `;
 
         this.setupEventListeners();
-        if(this.images.length > 1) {
+        if (this.images.length > 1) {
             this.startAutoplay();
-        }    
+        }
 
         return this.element;
     }
 
     private setupEventListeners(): void {
         const prevBtn = this.element.querySelector('.carousel-prev');
-        if(prevBtn) {
+        if (prevBtn) {
             prevBtn.addEventListener('click', () => this.previous());
         }
 
         const nextBtn = this.element.querySelector('.carousel-next');
-        if(nextBtn) {
+        if (nextBtn) {
             nextBtn.addEventListener('click', () => this.next());
         }
 
@@ -72,9 +76,9 @@ export class ImageCarousel {
         this.element.addEventListener('mouseleave', () => this.startAutoplay());
 
         this.element.addEventListener('keydown', (e) => {
-            if(e.key === 'ArrowLeft') {
+            if (e.key === 'ArrowLeft') {
                 this.previous();
-            } else if(e.key === 'ArrowRight') {
+            } else if (e.key === 'ArrowRight') {
                 this.next();
             }
         });
@@ -85,11 +89,11 @@ export class ImageCarousel {
     }
 
     private previous(): void {
-        this.goTo((this.currentIndex-1 + this.images.length) % this.images.length);
+        this.goTo((this.currentIndex - 1 + this.images.length) % this.images.length);
     }
 
     private goTo(index: number): void {
-        if(index === this.currentIndex) return;
+        if (index === this.currentIndex) return;
 
         const slides = this.element.querySelectorAll('.carousel-slide');
         const indicators = this.element.querySelectorAll('.carousel-indicator');
@@ -104,7 +108,7 @@ export class ImageCarousel {
     }
 
     private startAutoplay(): void {
-        if(this.autoplayInterval !== null || this.images.length <= 1) return;
+        if (this.autoplayInterval !== null || this.images.length <= 1) return;
 
         this.autoplayInterval = window.setInterval(() => {
             this.next();
@@ -112,7 +116,7 @@ export class ImageCarousel {
     }
 
     private stopAutoplay(): void {
-        if(this.autoplayInterval !== null) {
+        if (this.autoplayInterval !== null) {
             clearInterval(this.autoplayInterval);
             this.autoplayInterval = null;
         }
