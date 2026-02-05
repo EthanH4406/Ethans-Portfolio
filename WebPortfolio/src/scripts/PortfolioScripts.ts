@@ -1,247 +1,211 @@
-interface RepoConfig {
-    username: string;
-    repositories: string[];
+interface ProjectCard {
+    element: HTMLElement;
+    expandBtn: HTMLButtonElement;
+    isExpanded: boolean;
 }
 
-const CONFIG: RepoConfig = {
-    username: 'EthanH4406',
-    repositories: [
-        'PublicJunkyardJunction'
-    ]
-};
+const CONFIG = {
+    selectors: {
+        projectCard: '.project-card',
+        cardHeader: '.project-card-header',
+        expandBtn: '.expand-btn',
+    },
+    classes: {
+        expanded: 'expanded',
+    },
+    animationDuration: 400,
+} as const;
 
-//card gen
-interface GitHubRepo {
-    name: string;
-    description: string | null;
-    html_url: string;
-    language: string | null;
-    stargazers_count: number;
-    forks_count: number;
-    open_issues_count: number;
-    topics: string[];
-    private: boolean;
-    updated_at: string;
-    created_at: string;
-    homepage: string | null;
-}
-
-class GitHubPortfolio {
-    private container: HTMLElement;
-    private loadingIndicator: HTMLElement;
-    private errorMessage: HTMLElement;
+class ProjectCardManager {
+    private cards: Map<string, ProjectCard> = new Map();
 
     constructor() {
-        this.container = document.getElementById('repoCardsContainer') as HTMLElement;
-        this.loadingIndicator = document.getElementById('loadingIndicator') as HTMLElement;
-        this.errorMessage = document.getElementById('errorMessage') as HTMLElement;
-
-        this.init();
+        this.initialize();
     }
 
-    private init(): void {
-        //auto load
-        this.loadRepositories();
-    }
+    private initialize(): void {
+        const cardElements = document.querySelectorAll<HTMLElement>(CONFIG.selectors.projectCard);
 
-    private async loadRepositories(): Promise<void> {
-        this.showLoading();
-        this.hideError();
-        this.container.innerHTML = '';
+        cardElements.forEach((element, index) => {
+            const expandBtn = element.querySelector<HTMLButtonElement>(CONFIG.selectors.expandBtn);
+            const cardHeader = element.querySelector<HTMLElement>(CONFIG.selectors.cardHeader);
 
-        try {
-            const repos = await this.fetchRepositories(CONFIG.username, CONFIG.repositories);
-            this.hideLoading();
-
-            if(repos.length === 0) {
-                this.showError('No repos found. Check config.');
-            } else {
-                this.renderRepoCards(repos);
+            if (!expandBtn || !cardHeader) {
+                console.warn(`Project card ${index} is missing required elements`);
+                return;
             }
-        } catch (error) {
-            this.hideLoading();
-            this.showError(error instanceof Error ? error.message : 'An error occurred when fetching repos');
-        }
-    }
 
-    private async fetchRepositories(username: string, repoNames: string[]): Promise<GitHubRepo[]> {
-        const repos: GitHubRepo[] = [];
-        const errors: string[] = [];
+            const cardId = element.dataset.project || `card-${index}`;
+            const projectCard: ProjectCard = {
+                element,
+                expandBtn,
+                isExpanded: false,
+            };
 
-        for(const repoName of repoNames) {
-            try {
-                const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
-
-                if(response.status === 404) {
-                    errors.push(`Repo "${repoName}" not found`);
-                    continue;
-                }
-
-                if(response.status === 403) {
-                    throw new Error(`Github API rate limit exceeded`);
-                }
-
-                if(!response.ok) {
-                    errors.push(`Failed to fetch "${repoName}": ${response.statusText}`);
-                    continue;
-                }
-
-                const data: GitHubRepo = await response.json();
-                repos.push(data);
-            } catch(error) {
-                if(error instanceof Error && error.message.includes(`rate limit`)) {
-                    throw error;
-                }
-                errors.push(`Error fetching "${repoName}": ${error instanceof Error ? error.message : 'Unknown Error'}`);
-            }
-        }
-
-        if(errors.length > 0 && repos.length === 0) {
-            throw new Error(errors.join('; '));
-        }
-
-        return repos;
-    }
-
-    private renderRepoCards(repos: GitHubRepo[]) : void {
-        repos.forEach((repo, index) => {
-            const card = this.createRepoCard(repo);
-            card.style.animationDelay = `${index * 0.1}s`;
-            this.container.appendChild(card);
+            this.cards.set(cardId, projectCard);
+            this.attachEventListeners(projectCard, cardHeader);
         });
     }
 
-    private createRepoCard(repo: GitHubRepo): HTMLElement {
-        const card = document.createElement('div');
-        card.className = 'repo-card';
-        card.addEventListener('click', () => window.open(repo.html_url, '_blank'));
+    private attachEventListeners(card: ProjectCard, header: HTMLElement): void {
+        const toggleHandler = (event: Event) => {
+            event.preventDefault();
+            this.toggleCard(card);
+        };
 
-        const languageClass = repo.language
-            ? `lang-${repo.language.toLowerCase().replace(/[^a-z0-9]/g, '')}`
-            : '';
-        
-        const updatedDate = this.formatDate(repo.updated_at);
-        card.innerHTML = `
-            <div class="repo-card-header"> 
-                <div class="repo-icon">
-                </div>
-                <span class="repo-visibility ${repo.private ? 'visibility-private' : 'visibility-public'}">
-                    ${repo.private ? 'Private' : 'Public'}
-                </span>
-            </div>
-            
-            <h3 class="repo-name">${this.escapeHtml(repo.name)}</h3>
-            <p class="repo-description">${repo.description ? this.escapeHtml(repo.description) : 'No description provided'}</p>
-            
-            <div class="repo-meta">
-                ${repo.language ? `
-                    <div class="meta-item">
-                        <span class="language-dot ${languageClass}"></span>
-                        <span>${this.escapeHtml(repo.language)}</span>
-                    </div>
-                ` : ''}
-                
-                <div class="meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
-                    <span>${repo.stargazers_count}</span>
-                </div>
-                
-                <div class="meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M12 8v4m0 4v1m9-7h-1m-16 0H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>
-                    </svg>
-                    <span>${repo.forks_count}</span>
-                </div>
+        header.addEventListener('click', toggleHandler);
 
-                ${repo.open_issues_count > 0 ? `
-                    <div class="meta-item">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
-                        <span>${repo.open_issues_count}</span>
-                    </div>
-                ` : ''}
-            </div>
+        header.addEventListener('keydown', (event: KeyboardEvent) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                this.toggleCard(card);
+            }
+        });
 
-            ${repo.topics && repo.topics.length > 0 ? `
-                <div class="repo-topics">
-                    ${repo.topics.slice(0, 5).map(topic => 
-                        `<span class="topic-tag">${this.escapeHtml(topic)}</span>`
-                    ).join('')}
-                </div>
-            ` : ''}
-
-            <div class="repo-footer">
-                <span class="repo-updated">Updated ${updatedDate}</span>
-                <a href="${repo.html_url}" class="repo-link" target="_blank" onclick="event.stopPropagation()">
-                    View Repo
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                        <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
-                </a>
-            </div>
-        `;
-
-        return card;            
-    }
-
-    private formatDate(dateString: string): string {
-        const date = new Date(dateString);
-        const now = new Date();
-        const diffTime = Math.abs(now.getTime()- date.getTime());
-        const diffDays = Math.floor(diffTime/ (1000 * 60 *60 *24));
-
-        if(diffDays === 0) {
-            return 'today';
-        } else if(diffDays === 1) {
-            return 'yesterday';
-        } else if(diffDays < 7) {
-            return `${diffDays} days ago`;
-        } else if(diffDays < 30) {
-            const weeks = Math.floor(diffDays/7);
-            return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
-        } else if (diffDays < 365) {
-            const months = Math.floor(diffDays / 30);
-            return `${months} ${months === 1 ? 'month' : 'months'} ago`;
-        } else {
-            const years = Math.floor(diffDays / 365);
-            return `${years} ${years === 1 ? 'year' : 'years'} ago`;
+        if (!header.hasAttribute('tabindex')) {
+            header.setAttribute('tabindex', '0');
         }
     }
 
-    private escapeHtml(text: string): string {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+    private toggleCard(card: ProjectCard): void {
+        card.isExpanded = !card.isExpanded;
+
+        if (card.isExpanded) {
+            this.expandCard(card);
+        } else {
+            this.collapseCard(card);
+        }
+
+        card.expandBtn.setAttribute('aria-expanded', card.isExpanded.toString());
     }
 
-    private showLoading() : void {
-        this.loadingIndicator.style.display = 'flex';
+    private expandCard(card: ProjectCard): void {
+        card.element.classList.add(CONFIG.classes.expanded);
+
+        this.announceChange(card, 'expanded');
+
+        setTimeout(() => {
+            this.ensureCardVisible(card);
+        }, CONFIG.animationDuration / 2);
     }
 
-    private hideLoading() : void {
-        this.loadingIndicator.style.display = 'none';
+    private collapseCard(card: ProjectCard): void {
+        card.element.classList.remove(CONFIG.classes.expanded);
+
+        this.announceChange(card, 'collapsed');
     }
 
-    private showError(message: string) : void {
-        this.errorMessage.textContent = message;
-        this.errorMessage.style.display = 'block';
+    private ensureCardVisible(card: ProjectCard): void {
+        const rect = card.element.getBoundingClientRect();
+        const isPartiallyHidden = rect.bottom > window.innerHeight;
+
+        if (isPartiallyHidden) {
+            card.element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            });
+        }
     }
 
-    private hideError() : void {
-        this.errorMessage.style.display = 'none';
-        this.errorMessage.textContent = '';
+    private announceChange(card: ProjectCard, state: 'expanded' | 'collapsed'): void {
+        const projectTitle = card.element.querySelector('.project-title')?.textContent;
+        const announcement = `Project ${projectTitle} ${state}`;
+
+        const liveRegion = document.createElement('div');
+        liveRegion.setAttribute('role', 'status');
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.className = 'sr-only';
+        liveRegion.textContent = announcement;
+
+        document.body.appendChild(liveRegion);
+
+        setTimeout(() => {
+            document.body.removeChild(liveRegion);
+        }, 1000);
+    }
+
+    public expandAll(): void {
+        this.cards.forEach((card) => {
+            if (!card.isExpanded) {
+                this.toggleCard(card);
+            }
+        })
+    }
+
+    public collapseAll(): void {
+        this.cards.forEach((card) => {
+            if (card.isExpanded) {
+                this.toggleCard(card);
+            }
+        })
+    }
+
+    public getCard(id: string): ProjectCard | undefined {
+        return this.cards.get(id);
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new GitHubPortfolio();
-});
+function enhanceScollBehavior(): void {
+    document.querySelectorAll('a[href^="#"').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(
+                (anchor as HTMLAnchorElement).getAttribute('href') || ''
+            );
 
-export {};
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
+            }
+        });
+    });
+}
+
+function addScrollAnimations(): void {
+    const observerOptions: IntersectionObserverInit = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+}
+
+function logPerformanceMetrics(): void {
+    if ('performance' in window) {
+        window.addEventListener('load', () => {
+            const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+
+            console.group('Performance Metrics');
+            console.log(`DOM Content Loaded: ${perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart}ms`);
+            console.log(`Page Load: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
+            console.groupEnd();
+        });
+    }
+}
+
+function initializeApp(): void {
+    const cardManager = new ProjectCardManager();
+    enhanceScollBehavior();
+
+    if(process.env.NODE_ENV === 'development') {
+        logPerformanceMetrics();
+    }
+
+    (window as any).cardManager = cardManager;
+}
+
+if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
+
+export {ProjectCardManager, CONFIG};
